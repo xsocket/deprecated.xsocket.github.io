@@ -1,0 +1,20 @@
+{% if page.previous or page.next %}
+<div class="row post-recent">
+  <div class="col-md-6 text-left">
+  {% if page.previous %}
+    <p>
+      <label class="label label-primary">上一篇</label> 
+      <a href="{{ page.previous.url | prepend: site.baseurl }}">{{ page.previous.title }}</a>
+    </p>
+  {% endif %}
+  </div>
+  <div class="col-md-6 text-right">
+  {% if page.next %}
+    <p>
+      <a href="{{ page.next.url | prepend: site.baseurl }}">{{ page.next.title }}</a>
+      <label class="label label-primary">下一篇</label>
+    </p>
+  {% endif %}
+  </div>
+</div>
+{% endif %}

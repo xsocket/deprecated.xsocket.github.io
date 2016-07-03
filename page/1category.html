@@ -5,54 +5,48 @@ permalink: /category/
 icon: th-list
 ---
 
-
-<div class="page clearfix">
-    <div class="left">
-        <h1>{{page.title}}</h1>
-        <hr>
-        <ul>
-            {% for category in site.categories %}
-            <h2 id="{{category | first}}">{{category | first}}</h2>
-                {% for posts in category  %}
-                    {% for post in posts %}
-                        {% if post.url %}
-                        <li>
-                            <time>
-                            {{ post.date | date:"%F" }} {{ post.date | date: "%a" }}.
-                            </time>
-                            <a class="title" href="{{ post.url }}">{{ post.title }}</a>
-
-                            {% include category.html %}
-                            {% include tag.html %}
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            {% endfor %}
-        </ul>
-    </div>
-    <button class="anchor"><i class="fa fa-anchor"></i></button>
-    <div class="right">
-        <div class="wrap">
-
-            <!-- Content -->
-            <div class="side content">
-                <div>
-                    Content
-                </div>
-                <ul id="content-side" class="content-ul">
-                    {% for category in site.categories%}
-                        <li>
-                            <a class="scroll" href="#{{ category | first }}">
-                                {{ category | first }} ({{ category | last | size }})
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+<div class="container">
+  <div class="page-header">
+    <h1>{{page.title}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-9 main-content">
+      {% for category in site.categories %}
+        <h2 id="{{category | first}}">{{category | first}}</h2>
+        <div class="list-group">
+        {% for posts in category %}
+          {% for post in posts %}
+            {% if post.url %}
+            <div class="list-group-item">
+              <h4 class="list-group-item-heading" style="margin-bottom:15px;">
+                <a href="{{post.url}}">{{post.title}}</a> 
+                <small class="text-success pull-right"><i class="fa fa-calendar"></i> {{post.date | date:"%F"}}</small>
+              </h4>
+              <div class="list-group-item-text">
+                <small class="pull-left">{% include category.html %}</small>
+                <small class="pull-right">{% include tag.html %}</small>
+                <div style="clear:both;"></div>
+              </div>
             </div>
-            <!-- 其他div框放到这里 -->
-            <!-- <div class="side">bbbb</div> -->
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
         </div>
+      {% endfor %}
     </div>
-</div>
-<script src="{{ "/js/pageContent.js " | prepend: site.baseurl }}" charset="utf-8"></script>
+
+    <div class="col-md-3 sidebar">
+      <div class="panel panel-info content">
+        <div class="panel-heading"><i class="fa fa-list"></i> Content</div>
+        <div class="list-group">
+          {% for category in site.categories%}
+            <a class="list-group-item" href="#{{category | first}}">
+              <span class="name">{{ category | first }}</span>
+              <span class="badge">{{ category | last | size }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </div><!-- /.content -->
+    </div>
+  </div>
+</div>  
